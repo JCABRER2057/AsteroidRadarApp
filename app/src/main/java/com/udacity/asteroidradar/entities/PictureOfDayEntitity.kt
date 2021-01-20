@@ -13,11 +13,10 @@ data class PictureOfDayEntitity constructor(
     val mediaType: String
     )
 
-fun List<PictureOfDayEntitity>.asDomainModel(): List<PictureOfDay>{
-    return map{
-        PictureOfDay(
-                url = it.url,
-                title = it.title,
-                mediaType = it.mediaType)
-    }
-}
+
+fun PictureOfDayEntitity.asDomainModel() = PictureOfDay (
+        url = url,
+        title = title,
+        mediaType = mediaType)
+
+

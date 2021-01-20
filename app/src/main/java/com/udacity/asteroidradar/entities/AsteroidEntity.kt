@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.models.Asteroid
+import com.udacity.asteroidradar.models.PictureOfDay
 
 @Entity(tableName = "asteroid_table")
 data class AsteroidEntity constructor(
