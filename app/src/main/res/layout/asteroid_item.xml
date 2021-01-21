@@ -6,6 +6,11 @@
         <variable
             name="asteroid"
             type="com.udacity.asteroidradar.models.Asteroid" />
+
+
+        <variable
+            name="asteroidCallback"
+            type="com.udacity.asteroidradar.main.AsteroidClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +50,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:statusIcon="@{asteroid.potentiallyHazardous}"
             app:srcCompat="@drawable/ic_status_normal" />
-
+        <View
+            android:id="@+id/clickableOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> asteroidCallback.onClick(asteroid)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

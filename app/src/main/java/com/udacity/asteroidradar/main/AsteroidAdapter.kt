@@ -37,6 +37,7 @@ class AsteroidAdapter (val callback: AsteroidClick) : RecyclerView.Adapter<Aster
     override fun onBindViewHolder(holder: AsteroidHolder, position: Int) {
         holder.viewDataBinding.also {
             it.asteroid = asteroids[position]
+            it.asteroidCallback = callback
 
         }
     }

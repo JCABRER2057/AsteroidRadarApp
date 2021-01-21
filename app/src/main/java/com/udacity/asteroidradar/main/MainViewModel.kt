@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.udacity.asteroidradar.api.AsteroidsApi
 import com.udacity.asteroidradar.database.AsteroidDatabase.Companion.getInstance
 import com.udacity.asteroidradar.database.AsteroidRepository
+import com.udacity.asteroidradar.models.Asteroid
 
 import com.udacity.asteroidradar.models.PictureOfDay
 import kotlinx.coroutines.launch
@@ -23,6 +24,10 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
 
     /**********Filter**********************/
     private var _filterAsteroid = MutableLiveData(FilterAsteroid.ALL)
+    /*********Selected asteroid**********/
+    private val _navigateToSelectedAsteroid = MutableLiveData<Asteroid>()
+    val navigateToSelectedAsteroid: MutableLiveData<Asteroid>
+            get() = _navigateToSelectedAsteroid
 
     /*********Every time filterAsteroid changes********/
     val asteroids = Transformations.switchMap(_filterAsteroid) {
@@ -39,9 +44,15 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
             asteroidRepository.refreshPicture()
         }
     }
+    fun displayAsteroidDetail(asteroid: Asteroid){
+        _navigateToSelectedAsteroid.value = asteroid
+    }
+    fun displayAsteroidDetailComplete(){
+        _navigateToSelectedAsteroid.value = null
+    }
     fun onChangeFilter(filter: FilterAsteroid) {
         _filterAsteroid.postValue(filter)
     }
 
-    //var asteroids = videosRepository.asteroids
+
 }
