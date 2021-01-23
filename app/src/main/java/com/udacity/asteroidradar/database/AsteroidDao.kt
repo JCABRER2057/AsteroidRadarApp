@@ -21,9 +21,6 @@ interface AsteroidDao
     @Query("SELECT * FROM asteroid_table  ORDER BY closeApproachDate ASC")
     fun getAllAsteroids(): LiveData<List<AsteroidEntity>>
 
-
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAsteroids(vararg asteroids:AsteroidEntity)
 

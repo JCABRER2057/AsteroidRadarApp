@@ -18,10 +18,12 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
         WEEK,
         ALL
     }
+
     private val database = getInstance(application)
     private val asteroidRepository = AsteroidRepository(database)
-
-    var pictureOfDay = asteroidRepository.picture
+    private val _pictureOfDay = MutableLiveData<PictureOfDay>()
+    val pictureOfDay: LiveData<PictureOfDay>
+        get() = _pictureOfDay
 
     /**********Filter**********************/
     private var _filterAsteroid = MutableLiveData(FilterAsteroid.ALL)
@@ -42,14 +44,30 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             try {
+
                 asteroidRepository.refreshAsteroids()
                 asteroidRepository.refreshPicture()
+                _pictureOfDay.value = asteroidRepository.picture.value
+                
             }catch(exc:Exception){
                 Log.e("AsteroidViewModel",exc.message,exc)
             }
 
         }
     }
+
+    private fun getPictureOfDay() {
+        viewModelScope.launch {
+            try {
+                _pictureOfDay.value = asteroidRepository.picture.value
+            } catch (exc: Exception) {
+                Log.e("AsteroidViewModel", exc.message, exc)
+            }
+        }
+
+    }
+
+
     fun displayAsteroidDetail(asteroid: Asteroid){
         _navigateToSelectedAsteroid.value = asteroid
     }
@@ -59,6 +77,7 @@ class MainViewModel (application: Application) : AndroidViewModel(application) {
     fun onChangeFilter(filter: FilterAsteroid) {
         _filterAsteroid.postValue(filter)
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar.database
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.Constants.API_KEY
@@ -41,6 +42,8 @@ class AsteroidRepository (private val database: AsteroidDatabase){
         it.asDomainModel()
     }
 
+
+
     /**
      * Refresh the asteroids stored in the offline cache.
      *
@@ -64,7 +67,6 @@ class AsteroidRepository (private val database: AsteroidDatabase){
         withContext(Dispatchers.IO){
             val pictureOfDayModel = AsteroidsApi.retrofitService.getPictureOfDay(API_KEY)
             val pictureOfDayEntitity = pictureOfDayModel.asDatabaseModel()
-
             database.asteroidDao.insertPicture( pictureOfDayEntitity)
 
         }

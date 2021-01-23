@@ -9,9 +9,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.R
+import com.udacity.asteroidradar.bindImage
+import com.udacity.asteroidradar.database.AsteroidDatabase
+import com.udacity.asteroidradar.database.AsteroidRepository
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import com.udacity.asteroidradar.main.MainViewModel.FilterAsteroid.*
 import com.udacity.asteroidradar.models.Asteroid
+import com.udacity.asteroidradar.models.PictureOfDay
 
 
 class MainFragment : Fragment() {
@@ -31,6 +35,8 @@ class MainFragment : Fragment() {
                 viewModelAdapter?.asteroids = asteroids
             }
         })
+
+
     }
 
     override fun onCreateView(
